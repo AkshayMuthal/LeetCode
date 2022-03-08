@@ -19,8 +19,7 @@ class Solution(object):
         :type head: ListNode
         :rtype: bool
         """
-        if head == None or head.next == None:
+        if head == None:
             return False
-        
         return self.cycle(head, head.next)
         
