@@ -7,9 +7,9 @@ class Solution:
             else:
                 mp[i] = 1
         ans = []
-        mp2 = {k: v for k, v in sorted(mp.items(), key=lambda item: item[1], reverse=True)}
+        mp = {k: v for k, v in sorted(mp.items(), key=lambda item: item[1], reverse=True)}
         # print(mp2)
-        for k, v in mp2.items():
+        for k, v in mp.items():
             if ki<=0:
                 break
             ans.append(k)
