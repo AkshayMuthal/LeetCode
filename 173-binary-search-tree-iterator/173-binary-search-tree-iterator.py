@@ -4,10 +4,13 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+from collections import deque
+
+
 class BSTIterator:
 
     def __init__(self, root: Optional[TreeNode]):
-        self.nodes = []
+        self.nodes = deque()
         self.add_elem(root)
         
     def add_elem(self, node):
