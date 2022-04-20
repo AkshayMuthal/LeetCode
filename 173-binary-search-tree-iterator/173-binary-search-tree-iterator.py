@@ -20,8 +20,7 @@ class BSTIterator:
             
     def next(self) -> int:
         elem = self.nodes.pop()
-        if elem.right:
-            self.add_elem(elem.right)
+        self.add_elem(elem.right)
         return elem.val
 
     def hasNext(self) -> bool:
