@@ -27,30 +27,30 @@ class PeekingIterator:
         Initialize your data structure here.
         :type iterator: Iterator
         """
-        self.queue = deque()
-        while iterator.hasNext():
-            self.queue.append(iterator.next())
+        self.iter = iterator
+        self.top = self.iter.next() if self.iter.hasNext() else None
 
     def peek(self):
         """
         Returns the next element in the iteration without advancing the iterator.
         :rtype: int
         """
-        return self.queue[0]
+        return self.top
 
     def next(self):
         """
         :rtype: int
         """
-        return self.queue.popleft()
+        temp = self.top
+        self.top = self.iter.next() if self.iter.hasNext() else None
+        return temp
+        
 
     def hasNext(self):
         """
         :rtype: bool
         """
-        if len(self.queue)>0:
-            return True
-        return False
+        return self.top is not None
 
 # Your PeekingIterator object will be instantiated and called as such:
 # iter = PeekingIterator(Iterator(nums))
