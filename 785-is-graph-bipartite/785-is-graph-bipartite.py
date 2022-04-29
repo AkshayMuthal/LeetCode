@@ -34,12 +34,12 @@ class Solution:
         self.color = [-1 for i in range(self.nodes)]
         self.stop = False
         
-        color = 0
+        # color = 0
         for i in range(self.nodes):
             if not self.visited[i]:
                 if self.color[i]==-1:
-                    color = color^1
-                    self.traverse(i, graph, color)
+                    # color = color^1
+                    self.traverse(i, graph, 0)
                 else:
                     self.traverse(i, graph, self.color[i])
         return not self.stop
