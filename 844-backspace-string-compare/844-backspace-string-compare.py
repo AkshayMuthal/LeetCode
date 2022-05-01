@@ -9,14 +9,17 @@ class Solution:
                     sq.pop()
             else:
                 sq.append(i)
-        tq = deque()
         
+        tq = deque()
         for i in t:
             if i == "#":
                 if len(tq)>0:
                     tq.pop()
             else:
                 tq.append(i)
+
+        if len(sq)!=len(tq):
+            return False
 
         # print(sq)
         # print(tq)
@@ -25,6 +28,4 @@ class Solution:
             if sq.pop() != tq.pop():
                 return False
         
-        if len(sq) == 0 and len(tq) == 0:
-            return True
-        return False
+        return True
