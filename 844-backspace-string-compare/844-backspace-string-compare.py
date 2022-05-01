@@ -1,31 +1,34 @@
-from collections import deque
-
 class Solution:
     def backspaceCompare(self, s: str, t: str) -> bool:
-        sq = deque()
-        for i in s:
-            if i == "#":
-                if len(sq)>0:
-                    sq.pop()
-            else:
-                sq.append(i)
+        i, j = len(s)-1, len(t)-1
+        skips, skipt = 0, 0
         
-        tq = deque()
-        for i in t:
-            if i == "#":
-                if len(tq)>0:
-                    tq.pop()
-            else:
-                tq.append(i)
+        while i>=0 or j>=0:
+            while i>=0:
+                if s[i] == '#':
+                    skips+=1
+                    i-=1
+                elif skips>0:
+                    skips-=1
+                    i-=1
+                else:
+                    break
+            
+            while j>=0:
+                if t[j] == '#':
+                    skipt+=1
+                    j-=1
+                elif skipt>0:
+                    skipt-=1
+                    j-=1
+                else:
+                    break
 
-        if len(sq)!=len(tq):
-            return False
-
-        # print(sq)
-        # print(tq)
-        
-        while len(sq)>0 and len(tq)>0:
-            if sq.pop() != tq.pop():
+            if i>=0 and j>=0 and s[i]!=t[j]:
                 return False
+            if ((i>=0) != (j>=0)):
+                return False
+            i-=1
+            j-=1
         
         return True
