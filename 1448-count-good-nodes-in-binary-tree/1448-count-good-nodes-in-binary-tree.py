@@ -11,14 +11,13 @@ class Solution:
         
         q = deque()
         max_r = -10000
-        elem = root
         
-        while elem:
-            max_r = max(max_r, elem.val)
-            q.append((elem, max_r))
-            if elem.val>=max_r:
+        while root:
+            max_r = max(max_r, root.val)
+            q.append((root, max_r))
+            if root.val>=max_r:
                 self.count+=1
-            elem = elem.left
+            root = root.left
         
         while len(q)>0:
             elem, max_r = q.pop()
