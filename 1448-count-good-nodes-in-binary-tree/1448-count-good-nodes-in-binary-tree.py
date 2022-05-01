@@ -6,15 +6,29 @@
 #         self.right = right
 
 class Solution:
-    def good(self, max_r, root):
-        if root!=None:
-            if root.val>=max_r:
-                self.count+=1
-            max_r = max(max_r, root.val)
-            self.good(max_r, root.left)
-            self.good(max_r, root.right)
-    
     def goodNodes(self, root: TreeNode) -> int:
         self.count = 0
-        self.good(-10000, root)
+        
+        q = deque()
+        max_r = -10000
+        elem = root
+        
+        while elem:
+            max_r = max(max_r, elem.val)
+            q.append((elem, max_r))
+            if elem.val>=max_r:
+                self.count+=1
+            elem = elem.left
+        
+        while len(q)>0:
+            elem, max_r = q.pop()
+            elem = elem.right
+            
+            while elem:
+                max_r = max(max_r, elem.val)
+                q.append((elem, max_r))
+                if elem.val>=max_r:
+                    self.count+=1
+                elem = elem.left
+            
         return self.count
