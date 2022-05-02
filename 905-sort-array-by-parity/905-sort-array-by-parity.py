@@ -6,12 +6,14 @@ class Solution:
                 e+=1
             while o>=0 and nums[o]%2!=0:
                 o-=1
-            if e<o:
-                temp = nums[e]
-                nums[e] = nums[o]
-                nums[o] = temp
-                e+=1
-                o-=1
-            else:
+            
+            if e>o:
                 break
+
+            temp = nums[e]
+            nums[e] = nums[o]
+            nums[o] = temp
+            e+=1
+            o-=1
+        
         return nums
