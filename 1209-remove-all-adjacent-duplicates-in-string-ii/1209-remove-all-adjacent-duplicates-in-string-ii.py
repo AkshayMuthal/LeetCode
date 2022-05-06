@@ -1,7 +1,7 @@
 class Solution:
     def removeDuplicates(self, s: str, k: int) -> str:
         stack = deque()
-        stack.append((s[0], 1))
+        stack.append([s[0], 1])
         same = 1
         prev = s[0]
         for i in range(1, len(s)):
@@ -20,7 +20,7 @@ class Solution:
                     prev = ""
                     same = 0
             else:
-                stack.append((s[i], same))
+                stack.append([s[i], same])
                 prev = s[i]
         ans = ""
         while len(stack)>0:
