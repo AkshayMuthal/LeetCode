@@ -10,22 +10,25 @@ class Node:
 
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
-        if root == None:
-            return None
-        
-        queue = deque()
-        queue.append(root)
-        nxt = None
-        while len(queue)>0:
-            l = len(queue)
-            while l>0:
-                elem = queue.pop()
-                if elem.right!=None:
-                    queue.appendleft(elem.right)
-                if elem.left!=None:
-                    queue.appendleft(elem.left)
-                elem.next = nxt
-                nxt = elem
-                l-=1
-            nxt = None
+        curr = root
+        head = None
+        prev = None
+        while curr!=None:
+            while curr != None:
+                if curr.left != None:
+                    if prev != None:
+                        prev.next = curr.left
+                    else:
+                        head = curr.left
+                    prev = curr.left
+                if curr.right != None:
+                    if prev != None:
+                        prev.next = curr.right
+                    else:
+                        head = curr.right
+                    prev = curr.right
+                curr = curr.next
+            curr = head
+            prev = None
+            head = None
         return root
