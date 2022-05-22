@@ -13,13 +13,13 @@ class Solution:
         
         for i in range(pl):
             cp[ord(p[i])]+=1
-            cs[ord(s[i])]+=1
-        if cs == cp:
-            ans.append(0)
+        # if cs == cp:
+        #     ans.append(0)
         
-        for i in range(pl,sl):
+        for i in range(sl):
             cs[ord(s[i])]+=1
-            cs[ord(s[i-pl])]-=1
+            if i>=pl:
+                cs[ord(s[i-pl])]-=1
             if cs == cp:
                 ans.append(i-pl+1)
         return ans
