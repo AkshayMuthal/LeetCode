@@ -4,8 +4,7 @@ class Solution:
         while num>0:
             if num & 1 == 1:
                 #odd
-                num = num >> 1
-                num = num << 1
+                num = num - 1
             else:
                 #even
                 num = num >> 1
