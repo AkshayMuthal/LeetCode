@@ -3,7 +3,7 @@ class Solution:
         need = 1 << k
         window = 0
         all_one = need-1
-        got = [False]*need
+        got = [False for _ in range(need)]
             
         for i in range(len(s)):
             window = ((window<<1) & all_one) | int(s[i])
