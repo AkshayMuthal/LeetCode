@@ -5,19 +5,13 @@ class StockSpanner:
         self.ind = 0
 
     def next(self, price: int) -> int:
-        ans = 1
-        # print(self.stk, self.ind, price)
-        if len(self.stk) == 0:
-            self.stk.append((price, self.ind))
-        else:
-            while len(self.stk)>0 and price>=self.stk[-1][0]:
-                self.stk.pop()
-                
-            if len(self.stk) == 0:
-                ans = self.ind+1
-            else:
-                ans = self.ind - self.stk[-1][1]
-            self.stk.append((price, self.ind))
+        ans = 0
+        while self.stk and price>=self.stk[-1][0]:
+            self.stk.pop()
+
+        ans = self.ind - (self.stk[-1][1] if self.stk else -1)
+        self.stk.append((price, self.ind))
+        
         self.ind+=1
         return ans
 
