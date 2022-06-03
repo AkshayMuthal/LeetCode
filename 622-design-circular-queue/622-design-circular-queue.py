@@ -20,9 +20,6 @@ class MyCircularQueue:
         if not self.isEmpty():
             self.front = (self.front+1)%self.l
             self.size -= 1
-            if self.isEmpty():
-                self.front = 0
-                self.rear = 0
             return True
         return False
 
