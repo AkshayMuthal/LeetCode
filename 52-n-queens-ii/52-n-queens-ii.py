@@ -34,33 +34,22 @@ class Solution:
         
         return visited
             
-    def set_queen(self, col, row, n, visited, ans):
-        ans.append(self.queen_li[col])
+    def set_queen(self, col, row, n, visited):
         visited = self.visit_node(row, col, n , visited)
         if row == n-1:
-            self.res.append(ans)
+            self.count +=1
             return
         
         for i in range(n):
             if visited[row+1][i] == 0:
                 new_visited = copy.deepcopy(visited)
-                new_ans = copy.deepcopy(ans)
-                self.set_queen(i, row+1, n, new_visited, new_ans)
+                self.set_queen(i, row+1, n, new_visited)
 
     def totalNQueens(self, n: int) -> int:
-        self.res = []
-        self.queen_li = []
-        for i in range(n):
-            ans = ""
-            for j in range(n):
-                if j == i:
-                    ans+="Q"
-                else:
-                    ans+="."
-            self.queen_li.append(ans)
+        self.count = 0
         
         for col in range(n):
             visited = [[0 for _ in range(n)] for _ in range(n)]
-            self.set_queen(col, 0, n, visited, [])
+            self.set_queen(col, 0, n, visited)
         
-        return len(self.res)
+        return self.count
