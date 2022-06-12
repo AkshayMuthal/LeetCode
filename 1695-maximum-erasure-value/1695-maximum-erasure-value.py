@@ -5,8 +5,9 @@ class Solution:
         hm = dict()
         l = 0
         for r in range(len(nums)):
-            if nums[r] in hm:
-                while l<=hm[nums[r]]:
+            val = hm.get(nums[r], -1)
+            if val!=-1:
+                while l<=val:
                     csum -= nums[l]
                     l+=1
             csum += nums[r]
