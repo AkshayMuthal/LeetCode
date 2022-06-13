@@ -1,9 +1,6 @@
 class Solution:
     def minOperations(self, nums: List[int], x: int) -> int:
-        asum = 0
-        for i in nums:
-            asum+=i
-        
+        asum = sum(nums)
         target = asum-x
         al = len(nums)
         l, csum, maxlen = 0, 0, -1
