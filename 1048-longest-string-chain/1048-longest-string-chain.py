@@ -1,12 +1,11 @@
 class Solution:    
     def getdist(self, word, d, hm , words):
-        if word in hm:
-            return hm[word]
         maxd = d
         for i in range(len(word)):
             sub_word = word[:i] + word[i+1:]
             if sub_word in words:
-                hm[sub_word] = self.getdist(sub_word, 1, hm , words)
+                if sub_word not in hm:
+                    hm[sub_word] = self.getdist(sub_word, 1, hm , words)
                 maxd = max(maxd, d+hm[sub_word])
         return maxd
     
