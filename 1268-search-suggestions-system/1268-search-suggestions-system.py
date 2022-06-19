@@ -1,21 +1,10 @@
 class Node:
-    def __init__(self, char):
-        self.char = char
+    def __init__(self):
+        # self.char = char
         self.next = [None]*26
         self.word_end = False
 
 class Solution:
-    def get_word(self, node, w):
-        if node!= None:
-            if node.word_end:
-                print(w)
-                return
-
-            for i in range(26):
-                if node.next[i] != None:
-                    self.get_word(node.next[i], w+node.next[i].char)
-
-    
     def get_three_words(self, word, node, ans):
         if self.rl>=3:
             return ans
@@ -26,49 +15,43 @@ class Solution:
             for i in range(26):
                 tn = node.next[i]
                 if tn!=None:
-                    ans = self.get_three_words(word+tn.char, tn, ans)
+                    ans = self.get_three_words(word+self.ca[i], tn, ans)
         return ans
         
     
     def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
         self.start_list = [None]*26
         
-        for product in products:
-            node = None
-            curr_list = self.start_list
-            prod_len = len(product)
-            node = None
-            for char in product:
-                curr_list[ord(char)-97] = Node(char) if curr_list[ord(char)-97] == None else curr_list[ord(char)-97]
-                node = curr_list[ord(char)-97]
-                prev = node
-                curr_list = curr_list[ord(char)-97].next
-            prev.word_end = True
+        self.ca = []
+        for i in range(26):
+            self.ca.append(chr(97+i))
         
-        # for i in range(26):
-        #     if self.start_list[i] != None:
-        #         self.get_word(self.start_list[i], self.start_list[i].char)
+        for product in products:
+            curr_list = self.start_list
+            for char in product:
+                val = ord(char)-97
+                if curr_list[val]==None:
+                    curr_list[val] = Node()
+                prev = curr_list[val]
+                curr_list = curr_list[val].next
+            prev.word_end = True
         
         word = ""
         temp = None
         curr_list = self.start_list
         ans = []
-        # print(len(searchWord))
         for ind, char in enumerate(searchWord):
             word += char
-            temp = curr_list[ord(char)-97] if curr_list!=None else None
             val = []
+            
+            if curr_list!=None:
+                temp = curr_list[ord(char)-97]
             if temp != None:
                 self.rl = 0
-                val = self.get_three_words(word, temp, [])
+                val = self.get_three_words(word, temp, val)
                 curr_list = temp.next
             else:
-                # print(ind)
                 curr_list = None
             ans.append(val)
-        
-        # for v in ans:
-        #     print(v)
-            
         return ans
         
