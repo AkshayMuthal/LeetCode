@@ -7,11 +7,10 @@ class Solution(object):
         l, r = 0, len(height)-1
         maxc = 0
         while l<=r:
-            lh, rh = height[l], height[r]
-            c = min(lh, rh)*(r-l)
+            c = min(height[l], height[r])*(r-l)
             maxc = max(maxc, c)
             
-            if lh<rh:
+            if height[l] < height[r]:
                 l += 1
             else:
                 r -= 1
