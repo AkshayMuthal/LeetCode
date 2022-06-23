@@ -1,22 +1,19 @@
 class Solution:
-    def count_min(self, coins, curr, amount, dp):
-        if amount == 0:
-            return 0
-        if amount < 0 or curr < 0:
-            return sys.maxsize
-        if dp[curr][amount] != -1:
-            return dp[curr][amount]
-        
-        donottake = self.count_min(coins, curr-1, amount, dp)
-        res = donottake
-        if coins[curr]<=amount:
-            take = 1 + self.count_min(coins, curr, amount-coins[curr], dp)
-            res = min(take, donottake)
-        dp[curr][amount] = res
-        return res
-            
     
     def coinChange(self, coins: List[int], amount: int) -> int:
-        dp = [[-1 for _ in range(amount+1)] for _ in range(len(coins))]
-        val = self.count_min(coins, len(coins)-1, amount, dp)
-        return -1 if val == sys.maxsize else val
+        l = len(coins)
+        dp = [[amount+1 for _ in range(l+1)] for _ in range(amount+1)]
+        
+        for i in range(amount+1):
+            for j in range(l+1):
+                if i ==0 or j ==0:
+                    dp[i][j] = 0 if i==0 else sys.maxsize
+        
+        
+        for i in range(1, amount+1):
+            for j in range(1, l+1):
+                dp[i][j] = dp[i][j-1]
+                if coins[j-1]<=i:
+                    dp[i][j] = min(dp[i][j], 1+dp[i-coins[j-1]][j])
+        
+        return dp[amount][l] if dp[amount][l] != sys.maxsize else -1
