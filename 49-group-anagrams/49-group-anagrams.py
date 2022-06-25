@@ -11,20 +11,15 @@ class Solution(object):
             
             ans = ""
             for i in range(26):
-                if char[i]>0:
-                    while char[i]>0:
-                        ans += chr(i+97)
-                        char[i] -= 1
+                ans = ans + "#" + str(char[i])
             return ans
         
-        new_str = [get_str(s) for s in strs]
-        ans = []
+        hm = {}
+        
         for i in range(len(strs)):
-            if new_str[i]!="*":
-                li = [strs[i]]
-                for j in range(i+1, len(strs)):
-                    if new_str[i] == new_str[j]:
-                        new_str[j] = "*"
-                        li.append(strs[j])
-                ans.append(li)
-        return ans
+            s = get_str(strs[i])
+            if s not in hm:
+                hm[s] = []
+            hm[s].append(str(strs[i]))
+        
+        return hm.values()
