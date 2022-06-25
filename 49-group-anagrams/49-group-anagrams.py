@@ -6,12 +6,7 @@ class Solution(object):
         """
         hm = {}
         for i in range(len(strs)):
-            char = [0]*26
-            for j in strs[i]:
-                char[ord(j)-97] += 1
-            s = ""
-            for j in range(26):
-                s = s + "#" + str(char[j])
+            s = ''.join(sorted(strs[i]))
             if s not in hm:
                 hm[s] = []            
             hm[s].append(strs[i])
