@@ -4,14 +4,13 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
-        replace = False
-        l = len(nums)
+        replace = 0
         
-        for i in range(1, l):
+        for i in range(1, len(nums)):
             if nums[i-1] > nums[i]:
-                if replace:
+                if replace==1:
                     return False
-                replace = True
+                replace = 1
                 if i-2< 0 or nums[i] >= nums[i-2]:
                     nums[i-1] = nums[i]
                 else:
