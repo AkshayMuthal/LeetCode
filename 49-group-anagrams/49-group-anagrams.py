@@ -20,6 +20,6 @@ class Solution(object):
             s = get_str(strs[i])
             if s not in hm:
                 hm[s] = []
-            hm[s].append(str(strs[i]))
+            hm[s].append(strs[i])
         
         return hm.values()
