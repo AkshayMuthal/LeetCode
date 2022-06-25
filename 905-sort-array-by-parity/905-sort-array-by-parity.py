@@ -9,15 +9,14 @@ class Solution(object):
         e, o = 0, l-1
         
         while e<o:
-            if nums[e]%2==0:
+            while e<o and nums[e]%2==0:
                 e+=1
-            elif nums[o]%2!=0:
+            while e<o and nums[o]%2!=0:
                 o-=1
-            else:
-                temp = nums[e]
-                nums[e] = nums[o]
-                nums[o] = temp
-                o-=1
-                e+=1
+            temp = nums[e]
+            nums[e] = nums[o]
+            nums[o] = temp
+            o-=1
+            e+=1
         return nums
                 
