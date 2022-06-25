@@ -1,19 +1,23 @@
-class Solution:
-    def sortArrayByParity(self, nums: List[int]) -> List[int]:
-        e, o = 0, len(nums)-1
-        while e<o:
-            while e<len(nums) and nums[e]%2==0:
-                e+=1
-            while o>=0 and nums[o]%2!=0:
-                o-=1
-            
-            if e>o:
-                break
-
-            temp = nums[e]
-            nums[e] = nums[o]
-            nums[o] = temp
-            e+=1
-            o-=1
+class Solution(object):
+    def sortArrayByParity(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
         
+        l = len(nums)
+        e, o = 0, l-1
+        
+        while e<o:
+            if nums[e]%2==0:
+                e+=1
+            elif nums[o]%2!=0:
+                o-=1
+            else:
+                temp = nums[e]
+                nums[e] = nums[o]
+                nums[o] = temp
+                o-=1
+                e+=1
         return nums
+                
