@@ -5,16 +5,11 @@ class Solution(object):
         :rtype: int
         """
         a = [-1]*256
-        l = 0
         ml = 0
         i = 0
         for j in range(len(s)):
             val = ord(s[j])
-            if a[val] == -1:
-                l += 1
-            else:
-                i = max(i, a[val])
-                l = j - i
-            ml = max(ml, l)
+            i = max(i, a[val]+1)
+            ml = max(ml, j-i+1)
             a[val] = j
         return ml
