@@ -4,7 +4,4 @@ class Solution(object):
         :type n: str
         :rtype: int
         """
-        maxe = 0
-        for i in n:
-            maxe = max(maxe, int(i))
-        return maxe
+        return max(n)
