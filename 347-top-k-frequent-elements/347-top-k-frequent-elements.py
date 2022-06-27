@@ -1,17 +1,17 @@
+import heapq
+
 class Solution:
     def topKFrequent(self, nums: List[int], ki: int) -> List[int]:
-        mp = {}
+        hm = defaultdict()
         for i in nums:
-            if i in mp:
-                mp[i]+=1
-            else:
-                mp[i] = 1
-        ans = []
-        mp = {k: v for k, v in sorted(mp.items(), key=lambda item: item[1], reverse=True)}
-        # print(mp2)
-        for k, v in mp.items():
-            if ki<=0:
-                break
-            ans.append(k)
-            ki-=1
-        return ans
+            hm[i] = hm.get(i, 0)+1
+        
+        max_heap = []
+        for k, v in hm.items():
+            heapq.heappush(max_heap, (-v, k))
+        
+        res = []
+        for i in range(ki):
+            res.append(heapq.heappop(max_heap)[1])
+        
+        return res
