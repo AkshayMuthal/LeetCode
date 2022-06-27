@@ -4,20 +4,15 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        found = False
         l = len(s)
         i = l-1
         cnt = 0
         
-        while i>=0:
-            if not found:
-                if s[i] != " ":
-                    cnt += 1
-                    found = True
-            else:
-                if s[i] == " ":
-                    return cnt
-                else:
-                    cnt += 1
-            i -= 1
+        while s[i] == " " and i>=0:
+            i-=1
+        
+        if i>=0:
+            while s[i]!=" " and i>=0:
+                cnt+=1
+                i-=1
         return cnt
