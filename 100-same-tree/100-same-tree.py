@@ -11,8 +11,8 @@ class Solution(object):
         :type q: TreeNode
         :rtype: bool
         """
-        if (p==None and q==None):
+        if not p and not q:
             return True
-        elif (p == None and q != None) or (p != None and q == None):
+        elif not p or not q:
             return False
         return (p.val == q.val) and self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
