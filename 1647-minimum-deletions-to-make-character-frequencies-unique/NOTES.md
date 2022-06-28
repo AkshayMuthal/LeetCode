@@ -1,0 +1,6 @@
+"aab"
+"effffddddccccbbbbaaaaa"
+"aaabbbcc"
+"ceabaacb"
+"a"
+"bbcebab"
