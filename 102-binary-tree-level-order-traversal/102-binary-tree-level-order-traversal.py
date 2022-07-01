@@ -14,20 +14,12 @@ class Solution(object):
             return []
         
         ans = []
-        q = deque()
-        q.append(root)
+        level = [root]
         
-        while len(q):
-            cl = len(q)
-            level_nodes = []
-            for i in range(cl):
-                elem = q.popleft()
-                level_nodes.append(elem.val)
-                if elem.left!=None:
-                    q.append(elem.left)
-                if elem.right!=None:
-                    q.append(elem.right)
-            ans.append(level_nodes)
-        
+        while level:
+            ans.append([elem.val for elem in level])
+            lr_pair = [(elem.left, elem.right) for elem in level]
+            level = [elem for lr in lr_pair for elem in lr if elem]
+
         return ans
             
