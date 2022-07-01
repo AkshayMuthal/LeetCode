@@ -18,8 +18,7 @@ class Solution(object):
             left_sum = max(inorder(root.left), 0)
             right_sum = max(inorder(root.right), 0)
 
-            curr_sum = root.val + left_sum + right_sum
-            self.max_sum = max(self.max_sum, curr_sum)
+            self.max_sum = max(self.max_sum, root.val + left_sum + right_sum)
 
             return root.val + max(left_sum, right_sum)
         
