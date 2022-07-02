@@ -10,16 +10,13 @@ class Solution(object):
         horizontalCuts.sort()
         verticalCuts.sort()
 
-        hl, vl = len(horizontalCuts), len(verticalCuts)
-
         maxr = horizontalCuts[0]
-        for i in range(1, hl):
+        for i in range(1, len(horizontalCuts)):
             maxr = max(maxr, horizontalCuts[i] - horizontalCuts[i-1])
-
         maxr = max(maxr, h - horizontalCuts[-1])
         
         maxc = verticalCuts[0]
-        for i in range(1, vl):
+        for i in range(1, len(verticalCuts)):
             maxc = max(maxc, verticalCuts[i] - verticalCuts[i-1])
         maxc = max(maxc, w - verticalCuts[-1])
         
