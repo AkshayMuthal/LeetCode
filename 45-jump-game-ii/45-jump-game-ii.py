@@ -11,6 +11,4 @@ class Solution(object):
             if i == end:
                 steps += 1
                 end = reach
-            if end >= l-1:
-                break
         return steps
