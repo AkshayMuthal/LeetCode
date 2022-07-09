@@ -4,15 +4,13 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        reach = 0
-        min_steps = sys.maxint
+        steps, reach, end = 0, 0, 0
         l = len(nums)
-        dp = [0]*l
-        for i in range(l-2, -1, -1):
-            curr_min = sys.maxint
-            for j in range(i+1, i+1+nums[i]):
-                if j>=l:
-                    break
-                curr_min = min(curr_min, 1+dp[j])
-            dp[i] = curr_min
-        return dp[0]
+        for i in range(l-1):
+            reach = max(reach, i + nums[i])
+            if i == end:
+                steps += 1
+                end = reach
+            if end >= l-1:
+                break
+        return steps
