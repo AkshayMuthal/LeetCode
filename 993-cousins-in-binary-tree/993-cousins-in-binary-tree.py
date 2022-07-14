@@ -12,21 +12,29 @@ class Solution(object):
         :type y: int
         :rtype: bool
         """
-        self.yd, self.xd, self.xp, self.yp = 0, 0, None, None
-        
-        def height(node, parent, yd, xd):
-            if node != None:
-                if self.xp!=None and self.yp!=None:
-                    return
+        que = deque()
+        que.append(root)
+        while que:
+            size = len(que)
+            xp, yp = False, False
+            for i in range(size):
+                node = que.popleft()
                 if node.val == x:
-                    self.xd = xd
-                    self.xp = parent
+                    xp = True
                 if node.val == y:
-                    self.yd = yd
-                    self.yp = parent
-                height(node.left, node, yd+1, xd+1)
-                height(node.right, node, yd+1, xd+1)
-        
-        height(root, None, 0, 0)
-        
-        return True if self.xd == self.yd and self.xp != self.yp else False
+                    yp = True
+                
+                if node.left and node.right:
+                    if node.left.val == x and node.right.val == y:
+                        return False
+                    if node.left.val == y and node.right.val == x:
+                        return False
+                
+                if node.left:
+                    que.append(node.left)
+                if node.right:
+                    que.append(node.right)
+                
+            if xp and yp:
+                return True
+        return False
