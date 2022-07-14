@@ -5,16 +5,12 @@
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    def dfs(self, node, lsum):
-        if node:
-            if node.left:
-                if node.left.left == None and node.left.right == None:
-                    lsum += node.left.val
-                else:
-                    lsum = self.dfs(node.left, lsum)
-            if node.right:
-                lsum = self.dfs(node.right, lsum)
-        return lsum
+    def dfs(self, node, direction):
+        if not node:
+            return 0
+        if not node.left and not node.right and direction:
+            return node.val
+        return self.dfs(node.left, True) + self.dfs(node.right, False)
     
     
     def sumOfLeftLeaves(self, root):
@@ -22,4 +18,4 @@ class Solution(object):
         :type root: TreeNode
         :rtype: int
         """
-        return self.dfs(root, 0)
+        return self.dfs(root, False)
