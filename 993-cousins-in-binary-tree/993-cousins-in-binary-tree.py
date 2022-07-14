@@ -12,23 +12,21 @@ class Solution(object):
         :type y: int
         :rtype: bool
         """
-        def height(node, target, parent):
-            if node == None:
-                return [None, None]
-            if node.val == target:
-                return [0, parent]
-            ltup = height(node.left, target, node)
-            if ltup[0]!=None:
-                ltup[0]+=1
-                return ltup
-            rtup = height(node.right, target, node)
-            if rtup[0]!=None:
-                rtup[0] += 1
-                return rtup
-            return None, None
+        self.yd, self.xd, self.xp, self.yp = 0, 0, None, None
         
-        xtup = height(root, x, None)
-        ytup = height(root, y, None)
-        if xtup[0] == ytup[0] and xtup[1]!=ytup[1]:
-            return True
-        return False
+        def height(node, parent, yd, xd):
+            if node != None:
+                if self.xp!=None and self.yp!=None:
+                    return
+                if node.val == x:
+                    self.xd = xd
+                    self.xp = parent
+                if node.val == y:
+                    self.yd = yd
+                    self.yp = parent
+                height(node.left, node, yd+1, xd+1)
+                height(node.right, node, yd+1, xd+1)
+        
+        height(root, None, 0, 0)
+        
+        return True if self.xd == self.yd and self.xp != self.yp else False
