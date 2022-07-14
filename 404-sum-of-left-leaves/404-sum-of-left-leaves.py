@@ -4,18 +4,17 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution(object):
-    def dfs(self, node, direction):
-        if not node:
-            return 0
-        if not node.left and not node.right and direction:
-            return node.val
-        return self.dfs(node.left, True) + self.dfs(node.right, False)
-    
-    
+class Solution(object):    
     def sumOfLeftLeaves(self, root):
         """
         :type root: TreeNode
         :rtype: int
         """
-        return self.dfs(root, False)
+        def dfs(node, direction):
+            if not node:
+                return 0
+            if not node.left and not node.right and direction:
+                return node.val
+            return dfs(node.left, True) + dfs(node.right, False)
+        
+        return dfs(root, False)
