@@ -1,17 +1,22 @@
-import heapq
-
-class Solution:
-    def topKFrequent(self, nums: List[int], ki: int) -> List[int]:
-        hm = defaultdict()
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        hm = {}
         for i in nums:
             hm[i] = hm.get(i, 0)+1
         
-        max_heap = []
-        for k, v in hm.items():
-            heapq.heappush(max_heap, (-v, k))
+        freq = {}
+        for key, v in hm.items():
+            freq[v] = freq.get(v, []) + [key]
         
-        res = []
-        for i in range(ki):
-            res.append(heapq.heappop(max_heap)[1])
-        
-        return res
+        ans = []
+        for i in range(len(nums), 0, -1):
+            if i in freq:
+                for key in freq[i]:
+                    ans.append(key)
+
+        return ans[:k]
