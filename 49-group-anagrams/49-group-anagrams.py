@@ -4,11 +4,8 @@ class Solution(object):
         :type strs: List[str]
         :rtype: List[List[str]]
         """
-        hm = {}
-        for i in range(len(strs)):
-            s = ''.join(sorted(strs[i]))
-            if s not in hm:
-                hm[s] = []            
-            hm[s].append(strs[i])
-        
+        hm = defaultdict()
+        for i in strs:
+            s = ''.join(sorted(i))
+            hm[s] = hm.get(s, []) + [i]
         return hm.values()
