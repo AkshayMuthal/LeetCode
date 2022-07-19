@@ -4,9 +4,7 @@ class Solution:
             self.ans.append(s)
             return
         for c in self.map[int(self.digits[i])]:
-            s+=c
-            self.combi(s,i+1)
-            s=s[:-1]
+            self.combi(s+c,i+1)
     
     def letterCombinations(self, digits: str) -> List[str]:
         if len(digits)==0:
