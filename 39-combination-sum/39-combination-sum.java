@@ -1,18 +1,23 @@
-class Solution(object):
-    def dfs(self, target, path, res, candidates):
-        if target < 0:
-            return res
-        if target == 0:
-            res.append(path)
-            return res
-        for i in range(len(candidates)):
-            res = self.dfs(target - candidates[i], path + [candidates[i]], res, candidates[i:])
-        return res
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        dfs(target, new LinkedList<Integer>(), res, candidates, 0);
+        return res;
+    }  
     
-    def combinationSum(self, candidates, target):
-        """
-        :type candidates: List[int]
-        :type target: int
-        :rtype: List[List[int]]
-        """
-        return self.dfs(target, [], [], candidates)
+    private void dfs(int target, LinkedList<Integer> path, List<List<Integer>> res, int[] candidates, int start){
+        if(target < 0){
+            return;
+        }
+        if(target == 0){
+            res.add(new ArrayList<Integer>(path));
+            return;
+        }
+        // System.out.println(path.size());
+        for(int i=start; i<candidates.length; i++){
+            path.add(candidates[i]);
+            dfs(target-candidates[i], path, res, candidates, i);
+            path.remove(path.size()-1);
+        }
+    }
+}
