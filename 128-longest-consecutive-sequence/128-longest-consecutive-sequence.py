@@ -4,16 +4,14 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        if len(nums) == 0:
-            return 0
-        nums.sort()
-        ml, cl = 1, 1
-        for i in range(1, len(nums)):
-            if nums[i] != nums[i-1]:
-                if nums[i] == nums[i-1] + 1:
-                    cl += 1
-                else:
-                    ml = max(ml, cl)
-                    cl = 1
-        return max(ml, cl)
+        nums = set(nums)
+        ms = 0
+        for num in nums:
+            if num+1 not in nums:
+                cs = 1
+                while num-1 in nums:
+                    cs += 1
+                    num -= 1
+                ms = max(ms, cs)
+        return ms
     
