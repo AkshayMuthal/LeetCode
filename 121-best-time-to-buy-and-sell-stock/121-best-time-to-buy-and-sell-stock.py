@@ -7,8 +7,8 @@ class Solution(object):
         max_profit = 0
         minl = prices[0]
         
-        for i in range(1, len(prices)):
-            minl = min(minl, prices[i])
-            max_profit = max(max_profit, prices[i]-minl)
+        for i in prices:
+            minl = min(minl, i)
+            max_profit = max(max_profit, i-minl)
         
         return max_profit
