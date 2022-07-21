@@ -5,13 +5,10 @@ class Solution(object):
         :rtype: int
         """
         max_profit = 0
-        sell_spot = [0]*len(prices)
-        sell_spot[-1] = prices[-1]
+        minl = prices[0]
         
-        for i in range(len(prices)-2, -1, -1):
-            sell_spot[i] = max(sell_spot[i+1], prices[i])
-        
-        for i in range(len(prices)):
-            max_profit = max(max_profit, sell_spot[i] - prices[i])
+        for i in range(1, len(prices)):
+            minl = min(minl, prices[i])
+            max_profit = max(max_profit, prices[i]-minl)
         
         return max_profit
