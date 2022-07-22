@@ -4,12 +4,12 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        a = [-1]*256
+        char = [-1]*256
         ml = 0
-        i = 0
-        for j in range(len(s)):
-            val = ord(s[j])
-            i = max(i, a[val]+1)
-            ml = max(ml, j-i+1)
-            a[val] = j
+        last = 0
+        for i in range(len(s)):
+            val = char[ord(s[i])]
+            last = max(last, val+1)
+            ml = max(ml, i-last+1)
+            char[ord(s[i])] = i
         return ml
