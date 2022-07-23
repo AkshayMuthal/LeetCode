@@ -11,8 +11,8 @@ class Solution(object):
         """
         node = head
         while node and node.next:
-            if node.val == node.next.val:
-                nxt = node.next
+            nxt = node.next
+            if node.val == nxt.val:
                 node.next = nxt.next
             else:
                 node = node.next
