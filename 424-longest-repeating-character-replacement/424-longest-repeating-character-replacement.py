@@ -5,18 +5,17 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        start, res, maxc = 0, 0, 0
-        count = [0]*26
+        left, res, maxc = 0, 0, 0
+        count = {}
         
-        for i in range(len(s)):
-            count[ord(s[i])-ord('A')] += 1
-            maxc = max(maxc, count[ord(s[i])-ord('A')])
-            if i-start-maxc+1  > k:
-                count[ord(s[start])-ord('A')] -= 1
-                start += 1
-                for cnt in count:
-                    maxc = max(maxc, cnt)
-            res = max(res, i-start+1)
-            # print(res, i, start)
+        for right in range(len(s)):
+            count[s[right]] = count.get(s[right], 0) + 1
+            maxc = max(maxc, count[s[right]])
+
+            while (right-left+1)-maxc  > k:
+                count[s[left]] -= 1
+                left += 1
+            
+            res = max(res, right-left+1)
         
         return res
