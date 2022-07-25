@@ -11,13 +11,13 @@ class Solution(object):
         for i in range(9):
             for j in range(9):
                 val = board[i][j]
-                if val != ".":
-                    bi = (i//3)*3 + j//3
-                    
-                    if val not in rm[i] and val not in cm[j] and val not in bm[bi]:
-                        rm[i].add(val)
-                        cm[j].add(val)
-                        bm[bi].add(val)
-                    else:
-                        return False
+                if val == ".":
+                    continue
+                bi = (i//3)*3 + j//3
+                if val in rm[i] or val in cm[j] or val in bm[bi]:
+                    return False
+                rm[i].add(val)
+                cm[j].add(val)
+                bm[bi].add(val)
+                
         return True
