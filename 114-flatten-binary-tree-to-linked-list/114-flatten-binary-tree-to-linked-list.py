@@ -4,28 +4,21 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
+prev = None
 class Solution(object):
+    def __init__(self):
+        self.prev = None
+    
     def flatten(self, root):
         """
         :type root: TreeNode
         :rtype: None Do not return anything, modify root in-place instead.
         """
-        stk = []
-        node = root
-        prev = None
-        
-        while node or stk:
-            # print(stk)
-            if node.right:
-                stk.append(node.right)
-            if node.left:
-                node.right = node.left
-                node.left = None
-                node = node.right
-            elif stk:
-                node.right = stk.pop()   
-                node = node.right
-            else:
-                break
-        
-        return root
+        if root == None:
+            return
+        self.flatten(root.right)
+        self.flatten(root.left)
+        root.right = self.prev
+        root.left = None
+        self.prev = root
