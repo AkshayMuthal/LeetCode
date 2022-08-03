@@ -10,11 +10,7 @@ class MyCalendar(object):
         :rtype: bool
         """
         for s, e in self.intervals:
-            if s>=start and e<=end:
-                return False
-            if s<=start and e>start:
-                return False
-            if s>=start and s<end:
+            if s < end and start < e:
                 return False
         self.intervals.append((start, end))
         return True
