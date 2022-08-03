@@ -7,7 +7,7 @@ class Solution(object):
         stk = []
         
         for token in tokens:
-            if token == "*" or token == "/" or token == "+" or token == "-":
+            if token in "*/-+":
                 v2 = stk.pop()
                 v1 = stk.pop()
                 if token == "*":
