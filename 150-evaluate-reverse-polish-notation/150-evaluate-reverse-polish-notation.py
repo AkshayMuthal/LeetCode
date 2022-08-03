@@ -10,16 +10,16 @@ class Solution(object):
             if token in "*/-+":
                 v2 = stk.pop()
                 v1 = stk.pop()
+                print(token)
                 if token == "*":
                     stk.append(v1*v2)
-                if token == "/":
+                elif token == "/":
                     stk.append(int(float(v1)/v2))
-                if token == "+":
+                elif token == "+":
                     stk.append(v1+v2)
-                if token == "-":
+                else:
                     stk.append(v1-v2)
             else:
                 stk.append(int(token))
-            # print(token, stk)
         return stk.pop()
             
