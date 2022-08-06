@@ -4,16 +4,39 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
+from collections import deque
+
+
 class Solution(object):
     def isSymmetric(self, root):
         """
         :type root: TreeNode
         :rtype: bool
         """
-        def check_sym(left, right):
-            if left==None and right==None:
-                return True
-            if (left!=None and right==None) or (right!=None and left==None) or (left.val != right.val):
+        def check_pallindrome(queue):
+            l, r = 0, len(queue)-1
+            while l<r:
+                if queue[l] == None and queue[r] == None:
+                    l+=1
+                    r-=1
+                    continue
+                if (queue[l] and queue[r] == None) or (queue[r] and queue[l] == None) or (queue[l].val!=queue[r].val):
+                    return False
+                l+=1
+                r-=1
+            return True
+        
+        queue = deque()
+        queue.append(root)
+        
+        while queue:
+            l = len(queue)
+            if not check_pallindrome(queue):
                 return False
-            return True and check_sym(left.left, right.right) and check_sym(left.right, right.left)
-        return check_sym(root.left, root.right)
+            for i in range(l):
+                elem = queue.popleft()
+                if elem!=None:
+                    queue.append(elem.left)
+                    queue.append(elem.right)
+        return True
