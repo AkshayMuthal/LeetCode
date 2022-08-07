@@ -8,15 +8,16 @@ class Solution(object):
         l, h = 0, len(nums)-1
         while l<=h:
             m = l + (h-l)//2
-            if nums[m] == target:
+            low, mid, high = nums[l], nums[m], nums[h]
+            if mid == target:
                 return m
-            elif nums[m] >= nums[l]: # left side sorted
-                if nums[l] <= target <= nums[m]:
+            elif mid >= low: # left side sorted
+                if low <= target <= mid:
                     h = m-1
                 else:
                     l = m+1
             else:
-                if nums[m] <= target <= nums[h]:
+                if mid <= target <= high:
                     l = m+1
                 else:
                     h = m-1
