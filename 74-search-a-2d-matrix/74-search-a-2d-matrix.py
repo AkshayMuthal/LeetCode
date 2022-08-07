@@ -6,13 +6,15 @@ class Solution(object):
         :rtype: bool
         """
         rl, cl = len(matrix), len(matrix[0])
-        i, j = 0, cl-1
+        l, h = 0, (rl*cl)-1
         
-        while i<rl and j>=0:
-            if matrix[i][j] == target:
+        while l<=h:
+            mid = l + (h-l)//2
+            num = matrix[mid/cl][mid%cl]
+            if num == target:
                 return True
-            elif matrix[i][j] > target:
-                j-=1
+            elif num > target:
+                h = mid-1
             else:
-                i+=1
+                l = mid+1
         return False
