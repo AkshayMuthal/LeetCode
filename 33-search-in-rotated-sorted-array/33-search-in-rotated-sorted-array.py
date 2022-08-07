@@ -1,20 +1,24 @@
-class Solution:
-    def search(self, nums: List[int], target: int) -> int:
-        l, r = 0, len(nums)-1
-        
-        while l<=r:
-            mid = int(l + (r-l)/2)
-            
-            if nums[mid] == target:
-                return mid
-            elif nums[mid] >= nums[l]:
-                if nums[l] <= target <= nums[mid]:
-                    r = mid - 1
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        l, h = 0, len(nums)-1
+        while l<=h:
+            m = l + (h-l)//2
+            if nums[m] == target:
+                return m
+            elif nums[m] >= nums[l]: # left side sorted
+                if nums[l] <= target <= nums[m]:
+                    h = m-1
                 else:
-                    l = mid + 1
+                    l = m+1
             else:
-                if nums[mid] <= target <= nums[r]:
-                    l = mid + 1
+                if nums[m] <= target <= nums[h]:
+                    l = m+1
                 else:
-                    r = mid -1
-        return -1
+                    h = m-1
+        return -1   
+   
