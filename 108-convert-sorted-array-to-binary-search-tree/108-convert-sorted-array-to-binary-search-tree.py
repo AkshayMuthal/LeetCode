@@ -13,7 +13,6 @@ class Solution(object):
         node.left = self.get_root(arr, l, mid-1)
         node.right = self.get_root(arr, mid+1, r)
         return node
-        
     
     def sortedArrayToBST(self, nums):
         """
