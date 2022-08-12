@@ -7,17 +7,16 @@
 import sys
 
 
-class Solution(object):
-    def check_valid(self, node, minv, maxv):
-        if node == None:
-            return True
-        if minv < node.val < maxv:
-            return self.check_valid(node.left, minv, node.val) and self.check_valid(node.right, node.val, maxv)
-        return False
-    
+class Solution(object):    
     def isValidBST(self, root):
         """
         :type root: TreeNode
         :rtype: bool
         """
-        return self.check_valid(root, -sys.maxint, sys.maxint)
+        def check_valid(node, minv, maxv):
+            if node == None:
+                return True
+            if minv >= node.val or node.val >= maxv:
+                return False
+            return check_valid(node.left, minv, node.val) and check_valid(node.right, node.val, maxv)
+        return check_valid(root, -sys.maxint, sys.maxint)
