@@ -4,25 +4,18 @@ class Solution(object):
         :type arr: List[int]
         :rtype: int
         """
-        hm = {}
+        MOD = 10 ** 9 + 7
+        N = len(arr)
         arr.sort()
-        bt = 0
+        dp = [1]*N
+        index = {val:ind for ind, val in enumerate(arr)}
         
-        for i in range(len(arr)):
-            for j in range(i+1, len(arr)):
-                rem = arr[j]%arr[i]
-                ques = arr[j]/arr[i]
-                if rem == 0 and ques in arr:
-                    hm[arr[j]] = hm.get(arr[j], []) + [(arr[i], ques)]
+        for i in range(N):
+            for j in range(i):
+                if arr[i]%arr[j] == 0:
+                    right = arr[i]/arr[j]
+                    if right in index:
+                        dp[i] += dp[j]*dp[index[right]]
+                        dp[i] %= MOD
         
-        hm = OrderedDict(sorted(hm.items()))
-#         for k, v in hm.items():
-#             print(k, v)
-        
-        hm2 = {}
-        for k, v in hm.items():
-            for pair in v:
-                p1, p2 = hm2.get(pair[0], 0), hm2.get(pair[1], 0)
-                hm2[k] = hm2.get(k, 0) + p1 + p2 + p1*p2 + 1
-            bt += hm2[k]
-        return (bt+len(arr))%1000000007
+        return sum(dp)%MOD
