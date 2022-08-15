@@ -5,22 +5,22 @@ class Solution(object):
         :rtype: int
         """
         hm = {
-          "I": [0, 1],
-          "V": [1, 5],
-          "X": [2, 10],
-          "L": [3, 50],
-          "C": [4, 100],
-          "D": [5, 500],
-          "M": [6, 1000]
+          "I": 1,
+          "V": 5,
+          "X": 10,
+          "L": 50,
+          "C": 100,
+          "D": 500,
+          "M": 1000
         }
         prev = "I"
         value = 0
         
         for i in range(len(s)-1, -1, -1):
-            if hm[s[i]][0] >= hm[prev][0]:
-                value += hm[s[i]][1]
+            if hm[s[i]] >= hm[prev]:
+                value += hm[s[i]]
             else:
-                value -= hm[s[i]][1]
+                value -= hm[s[i]]
             prev = s[i]
         
         return value
