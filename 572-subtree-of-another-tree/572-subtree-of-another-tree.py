@@ -1,28 +1,19 @@
 # Definition for a binary tree node.
-# class TreeNode(object):
+# class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
 #         self.val = val
 #         self.left = left
 #         self.right = right
+class Solution:
+    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+        string_s = self.traverse_tree(root)
+        string_t = self.traverse_tree(subRoot)
 
-class Solution(object):
-    def isSame(self, p, q):
-        if p==None and q==None:
+        if string_t in string_s:
             return True
-        if p==None or q==None:
-            return False
-        return (p.val == q.val) and self.isSame(p.left, q.left) and self.isSame(p.right, q.right)  
-    
-    def isSubtree(self, root, subRoot):
-        """
-        :type root: TreeNode
-        :type subRoot: TreeNode
-        :rtype: bool
-        """
-        if root == None:
-            return False
-        if root.val == subRoot.val and self.isSame(root, subRoot):
-            return True
-        else:
-            return self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)
         return False
+    
+    def traverse_tree(self, s):
+        if s:
+            return f"#{s.val} {self.traverse_tree(s.left)} {self.traverse_tree(s.right)}"
+        return None
