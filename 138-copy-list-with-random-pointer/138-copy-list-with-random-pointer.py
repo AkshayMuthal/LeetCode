@@ -8,23 +8,41 @@ class Node:
 """
 
 class Solution(object):
+    def printlist(self, node):
+        while node:
+            print(node.val, node.next, node.random)
+            node = node.next
+    
     def copyRandomList(self, head):
         """
         :type head: Node
         :rtype: Node
         """
+        if head == None:
+            return None
+        
         node = head
-        hm  = {}
-        start = None
+        while node:
+            new_node = Node(node.val)
+            nxt = node.next
+            node.next = new_node
+            new_node.next = nxt
+            node = nxt
+        
+        node = head
+        while node:
+            random = node.random
+            replica = node.next
+            replica.random = random.next if random else None 
+            node = replica.next
+        
+        start, node = head.next, head
         
         while node:
-            hm[node] = Node(node.val)
-            if start is None:
-                start = hm[node]
-            node = node.next
+            replica = node.next
+            if replica:
+                node.next = replica.next
+            node = replica
         
-        for old_node, new_node in hm.items():
-            new_node.next = hm.get(old_node.next, None)
-            new_node.random = hm.get(old_node.random, None)
-            
         return start
+    
