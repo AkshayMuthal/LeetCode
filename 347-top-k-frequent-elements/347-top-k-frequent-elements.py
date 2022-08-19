@@ -5,18 +5,6 @@ class Solution(object):
         :type k: int
         :rtype: List[int]
         """
-        hm = {}
-        for i in nums:
-            hm[i] = hm.get(i, 0)+1
-        
-        freq = {}
-        for key, v in hm.items():
-            freq[v] = freq.get(v, []) + [key]
-        
-        ans = []
-        for i in range(len(nums), 0, -1):
-            if i in freq:
-                for key in freq[i]:
-                    ans.append(key)
-
-        return ans[:k]
+        count = collections.Counter(nums)
+        ans = [pair[0] for pair in count.most_common(k)]
+        return ans
