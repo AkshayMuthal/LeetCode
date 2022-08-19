@@ -18,10 +18,7 @@ class Solution(object):
                 return ind
             
             ind = k_small(node.left, k, ind) + 1
-            if self.ans != None:
-                return self.ans
-            
-            if ind == k:
+            if ind == k and self.ans is None:
                 self.ans = node.val
                 return self.ans
             
