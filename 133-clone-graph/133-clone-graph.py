@@ -7,27 +7,23 @@ class Node(object):
 """
 
 class Solution(object):
-    def create_node(self, node, new_node, hm, visited):
-        if node.val in visited:
-            return
-        visited.add(node.val)
-        
-        for neighbor in node.neighbors:
-            hm[neighbor.val] = hm[neighbor.val] if neighbor.val in hm else Node(neighbor.val)
-            new_node.neighbors.append(hm[neighbor.val])
-        for i in range(len(node.neighbors)):
-            self.create_node(node.neighbors[i], new_node.neighbors[i], hm, visited)
-    
     def cloneGraph(self, node):
         """
         :type node: Node
         :rtype: Node
         """
-        if not node:
-            return None
-        source = Node(node.val)
-        hm = {}
-        hm[source.val] = source
-        visited = set()
-        self.create_node(node, source, hm, visited)
-        return source
+        if not node: return None
+        hm = {node.val:Node(node.val)}
+        q = deque([node])
+        
+        while q:
+            curr = q.popleft()
+            clone = hm[curr.val]
+            
+            for neighbor in curr.neighbors:
+                if neighbor.val not in hm:
+                    hm[neighbor.val] = Node(neighbor.val)
+                    q.append(neighbor)
+                clone.neighbors.append(hm[neighbor.val])
+        
+        return hm[node.val]
