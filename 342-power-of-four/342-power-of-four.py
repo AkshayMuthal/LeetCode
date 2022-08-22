@@ -4,4 +4,14 @@ class Solution(object):
         :type n: int
         :rtype: bool
         """
-        return n>0 and n&(n-1)==0 and (n-1)%3==0
+        if n<0 and n%2!=0:
+            return False
+        check = 1
+        while n:
+            if check and n==1:
+                return True
+            if n%2!=0:
+                return False
+            check ^= 1
+            n >>= 1
+        return False
