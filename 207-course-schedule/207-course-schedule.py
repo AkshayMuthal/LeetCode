@@ -1,5 +1,3 @@
-import heapq
-
 class Solution(object):
     def canFinish(self, numCourses, prerequisites):
         """
@@ -9,12 +7,9 @@ class Solution(object):
         """
         adj_map = {}
         indegree = [0]*numCourses
-        
-        for i in range(numCourses):
-            adj_map[i] = []
             
         for c_after, c_before in prerequisites:
-            adj_map[c_before] = adj_map.get(c_before) + [c_after]
+            adj_map[c_before] = adj_map.get(c_before, []) + [c_after]
             indegree[c_after] += 1
         
         q = deque()
@@ -24,10 +19,11 @@ class Solution(object):
         
         while q:
             course = q.pop()
-            for c_after in adj_map[course]:
-                indegree[c_after] -= 1
-                if indegree[c_after] == 0:
-                    q.append(c_after)
+            if course in adj_map:
+                for c_after in adj_map[course]:
+                    indegree[c_after] -= 1
+                    if indegree[c_after] == 0:
+                        q.append(c_after)
         
         for i in indegree:
             if i != 0:
