@@ -17,15 +17,14 @@ class Solution(object):
             if indegree[i] == 0:
                 q.append(i)
         
+        count = 0
         while q:
             course = q.pop()
+            count += 1
             if course in adj_map:
                 for c_after in adj_map[course]:
                     indegree[c_after] -= 1
                     if indegree[c_after] == 0:
                         q.append(c_after)
-        
-        for i in indegree:
-            if i != 0:
-                return False
-        return True
+
+        return True if count == numCourses else False
