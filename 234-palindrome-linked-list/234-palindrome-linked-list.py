@@ -9,22 +9,20 @@ class Solution(object):
         :type head: ListNode
         :rtype: bool
         """
-        slow, fast = head, head.next        
+        slow, fast, prev = head, head, None
         
         while fast and fast.next:
-            slow = slow.next
             fast = fast.next.next
-        
-        # reverse
-        prev = None
-        rev_head = slow.next
-        slow.next = None
-        while rev_head:
-            nxt = rev_head.next
-            rev_head.next = prev
-            prev = rev_head
-            rev_head = nxt
             
+            nxt = slow.next
+            slow.next = prev
+            prev = slow
+            slow = nxt
+        
+        if fast:
+            slow = slow.next
+        
+        head = slow
         rev_head = prev
         
         # compare
