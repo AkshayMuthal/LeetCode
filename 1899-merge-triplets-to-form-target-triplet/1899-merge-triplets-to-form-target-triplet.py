@@ -7,7 +7,7 @@ class Solution(object):
         """
         indices = []
         for i, triplet in enumerate(triplets):
-            if (triplet[0] == target[0] or triplet[1] == target[1] or triplet[2] == target[2]) and (triplet[0] <= target[0] and triplet[1] <= target[1] and triplet[2] <= target[2]):
+            if triplet[0] <= target[0] and triplet[1] <= target[1] and triplet[2] <= target[2]:
                 indices.append(i)
         
         ans = [0, 0, 0]
