@@ -5,8 +5,6 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         def traverse(ind, curr, nums, super_set):
-            if ind >= len(nums):
-                return
             super_set.append(curr)
             for i in range(ind+1, len(nums)):
                 traverse(i, curr+[nums[i]], nums, super_set)
@@ -16,4 +14,3 @@ class Solution(object):
             traverse(i, [nums[i]], nums, super_set)
         
         return super_set
-            
