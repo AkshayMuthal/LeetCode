@@ -1,66 +1,53 @@
-import copy
-
-class Solution:
-    def visit_node(self, row, col, n, visited):
-        visited[row][col] = 1
-        
+class Solution(object):
+    def append_board(self, board, n, ans):
+        temp = []
         for i in range(n):
-            visited[i][col] = 1
-            visited[row][i] = 1
-        
-        i, j = row, col
-        while i<n and j<n:
-            visited[i][j] = 1
-            i+=1
-            j+=1
-        
-        i, j = row, col
-        while i>=0 and j>=0:
-            visited[i][j] = 1
-            i-=1
-            j-=1
-        
-        i, j = row, col
-        while i>=0 and j<n:
-            visited[i][j] = 1
-            i-=1
-            j+=1
-            
-        i, j = row, col
-        while j>=0 and i<n:
-            visited[i][j] = 1
-            i+=1
-            j-=1
-        
-        return visited
-            
-    def set_queen(self, col, row, n, visited, ans):
-        ans.append(self.queen_li[col])
-        visited = self.visit_node(row, col, n , visited)
-        if row == n-1:
-            self.res.append(ans)
-            return
-        
-        for i in range(n):
-            if visited[row+1][i] == 0:
-                new_visited = copy.deepcopy(visited)
-                new_ans = copy.deepcopy(ans)
-                self.set_queen(i, row+1, n, new_visited, new_ans)
-    
-    def solveNQueens(self, n: int) -> List[List[str]]:
-        self.res = []
-        self.queen_li = []
-        for i in range(n):
-            ans = ""
+            s = ""
             for j in range(n):
-                if j == i:
-                    ans+="Q"
+                if board[i][j] == 1:
+                    s += "Q"
                 else:
-                    ans+="."
-            self.queen_li.append(ans)
+                    s += "."
+            temp.append(s)
+        ans.append(temp)
+    
+    def check(self, row, col, board, n):
+        for i in range(n):
+            if board[i][col]:
+                return False
+        j=col
+        for i in range(row, -1, -1):
+            if j<0:
+                break
+            if board[i][j]:
+                return False
+            j-=1
         
+        j=col
+        for i in range(row, -1, -1):
+            if j>=n:
+                break
+            if board[i][j]:
+                return False
+            j+=1
+        return True
+    
+    def solve(self, row, board, n, ans):
+        if row == n:
+            self.append_board(board, n, ans)
+
         for col in range(n):
-            visited = [[0 for _ in range(n)] for _ in range(n)]
-            self.set_queen(col, 0, n, visited, [])
-        
-        return self.res
+            if self.check(row, col, board, n):
+                board[row][col] = 1
+                flag = self.solve(row+1, board, n, ans)
+                board[row][col] = 0
+    
+    def solveNQueens(self, n):
+        """
+        :type n: int
+        :rtype: List[List[str]]
+        """
+        ans = []
+        board = [[0]*n for _ in range(n)]
+        self.solve(0, board, n, ans)
+        return ans
