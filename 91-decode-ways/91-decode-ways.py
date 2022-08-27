@@ -1,29 +1,26 @@
-class Solution(object):
-    def get_all_combi(self, s, ind, str_len, dp):
-        if ind == str_len:
-            return 1
-        if s[ind] == "0":
+class Solution:    
+    def numDecodings(self, s: str) -> int:
+        if s[0] == "0":
             return 0
-        if dp[ind]>0:
-            return dp[ind]
-            
-        dnt = self.get_all_combi(s, ind+1, str_len, dp)
-        
-        t = 0
-        val = int(s[ind:ind+2])
-        
-        if val>0 and val<27 and ind+2 <= str_len:
-            t = self.get_all_combi(s, ind+2, str_len, dp)
-        
-        dp[ind] = dnt + t
-        return dp[ind]
-    
-    
-    def numDecodings(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
         dp = [0]*len(s)
-        val = self.get_all_combi(s, 0, len(s), dp)
-        return val
+        
+        def rec(ind, s, cnt, dp):
+            if ind == len(s):
+                cnt += 1
+                return cnt
+            if ind > len(s) or s[ind] == "0":
+                return cnt
+            if dp[ind]!= 0 :
+                cnt += dp[ind]
+                return cnt
+            
+            cnt = rec(ind+1, s, cnt, dp)
+            if ind+2 <= len(s) and int(s[ind:ind+2])<27:
+                cnt = rec(ind+2, s, cnt, dp)
+            
+            dp[ind] = cnt
+            return cnt
+
+        cnt = 0
+        cnt = rec(0, s, cnt, dp)
+        return cnt
