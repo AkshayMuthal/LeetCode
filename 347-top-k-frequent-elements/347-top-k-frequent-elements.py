@@ -5,6 +5,10 @@ class Solution(object):
         :type k: int
         :rtype: List[int]
         """
-        count = collections.Counter(nums)
-        ans = [pair[0] for pair in count.most_common(k)]
-        return ans
+        hm = {}
+        for num in nums:
+            hm[num] = hm.get(num, 0) + 1
+        
+        hm = [key for key, value in sorted(hm.items(), key= lambda item: item[1], reverse=True)]
+        return hm[:k]
+        
