@@ -17,7 +17,7 @@ class Solution(object):
         node.right = root
         q.append((node, max_val))
         
-        while q:
+        while len(q)>0:
             node, max_val = q.pop()
             node = node.right
             
