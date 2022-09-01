@@ -5,20 +5,28 @@
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    def inorder(self, node, max_val):
-        if not node:
-            return
-        if node.val >= max_val:
-            max_val = node.val
-            self.count += 1
-        self.inorder(node.left, max_val)
-        self.inorder(node.right, max_val)
-    
     def goodNodes(self, root):
         """
         :type root: TreeNode
         :rtype: int
         """
-        self.count = 0
-        self.inorder(root, root.val)
-        return self.count
+        count, max_val = 0, root.val
+        q = deque()
+        
+        node = TreeNode()
+        node.right = root
+        q.append((node, max_val))
+        
+        while q:
+            node, max_val = q.pop()
+            node = node.right
+            
+            while node:
+                max_val = max(node.val, max_val)
+                q.append((node, max_val))
+                if node.val >= max_val:
+                    count += 1
+                node = node.left
+        
+        return count
+            
